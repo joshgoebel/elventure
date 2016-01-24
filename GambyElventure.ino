@@ -42,6 +42,9 @@
 
 #define PAUSE_BETWEEN_ACTIONS 100
 
+#define PAUSE_BUTTON BUTTON_1
+#define THROW_BUTTON BUTTON_2
+
 #define GAME_TITLE   0
 #define GAME_PLAYING 1
 #define GAME_PAUSED  2
@@ -90,7 +93,7 @@ void loop()
       if (millis() >= next_action)
       {
         //wait for a button to be pressed to continue
-        if (lastInputs & BUTTON_2)
+        if (lastInputs & THROW_BUTTON)
         {
           if (game_state == GAME_WON)
           {
@@ -113,8 +116,8 @@ void loop()
         if (lastInputs & DPAD_DOWN) moveElf(FACING_DOWN);
         if (lastInputs & DPAD_RIGHT) moveElf(FACING_RIGHT);
         if (lastInputs & DPAD_LEFT) moveElf(FACING_LEFT);
-        if (lastInputs & BUTTON_2) throwSword();
-        if (lastInputs & BUTTON_1) 
+        if (lastInputs & THROW_BUTTON) throwSword();
+        if (lastInputs & PAUSE_BUTTON) 
         {
          drawDisplay(getElf());
          game_state = GAME_PAUSED;
@@ -143,7 +146,7 @@ void loop()
     case GAME_PAUSED:
       if (millis() >= next_action)
       {
-        if (lastInputs & BUTTON_1)
+        if (lastInputs & PAUSE_BUTTON)
         {
           //redraw the current screen and continue
           gamby.clearScreen();
