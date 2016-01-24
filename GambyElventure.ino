@@ -71,7 +71,7 @@ void loop()
          lastInputs = gamby.inputs;
          
 		 //wait for a button to be pressed to continue
-         if (lastInputs == BUTTON_2)
+         if (lastInputs & BUTTON_2)
          {
 		   
 		   //check to see what we are doing when we start the game
@@ -102,12 +102,12 @@ void loop()
          gamby.readInputs();
          lastInputs = gamby.inputs;
          
-         if (lastInputs == DPAD_UP) moveElf(FACING_UP);
-         if (lastInputs == DPAD_DOWN) moveElf(FACING_DOWN);
-         if (lastInputs == DPAD_RIGHT) moveElf(FACING_RIGHT);
-         if (lastInputs == DPAD_LEFT) moveElf(FACING_LEFT);
-         if (lastInputs == BUTTON_2) throwSword();
-         if (lastInputs == BUTTON_1) 
+         if (lastInputs & DPAD_UP) moveElf(FACING_UP);
+         if (lastInputs & DPAD_DOWN) moveElf(FACING_DOWN);
+         if (lastInputs & DPAD_RIGHT) moveElf(FACING_RIGHT);
+         if (lastInputs & DPAD_LEFT) moveElf(FACING_LEFT);
+         if (lastInputs & BUTTON_2) throwSword();
+         if (lastInputs & BUTTON_1) 
          {
            drawDisplay(getElf());
            game_state = GAME_PAUSED;
@@ -141,7 +141,7 @@ void loop()
          gamby.readInputs();
          lastInputs = gamby.inputs;
 		 
-         if (lastInputs == BUTTON_1)
+         if (lastInputs & BUTTON_1)
          {
            //redraw the current screen and continue
            gamby.clearScreen();
