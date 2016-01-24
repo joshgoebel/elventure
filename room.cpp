@@ -1,5 +1,5 @@
 #include <avr/pgmspace.h>
-#include <Gamby.h>
+#include "ArduboyGamby.h"
 #include <string.h>
 #include "room.h"
 #include "room_data.h"

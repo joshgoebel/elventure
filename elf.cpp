@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 #include <string.h>
-#include <Gamby.h>
+#include "ArduboyGamby.h"
 #include "elf.h"
 #include "elf_bitmap.h"
 #include "map_bitmap.h"

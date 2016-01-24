@@ -1,5 +1,5 @@
 #include <avr/pgmspace.h>
-#include <Gamby.h>
+#include "ArduboyGamby.h"
 #include "item_bitmap.h"
 #include "map_bitmap.h"
 #include "elf.h"

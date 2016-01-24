@@ -1,5 +1,5 @@
 #include <avr/pgmspace.h>
-#include <Gamby.h>
+#include "ArduboyGamby.h"
 #include "logo_bitmap.h"
 extern GambyGraphicsMode gamby;
 

@@ -24,7 +24,11 @@
    
  */
  
-#include <Gamby.h>
+
+#include <Arduboy.h>
+#include <ArduboyExtra.h>
+#include "ArduboyGamby.h"
+#include <simple_buttons.h>
 #include <avr/pgmspace.h>
 
 #include "map.h"
@@ -45,7 +49,8 @@
 #define GAME_WON     3
 #define GAME_OVER    4
 
-GambyGraphicsMode gamby;
+Arduboy arduboy;
+GambyGraphicsMode gamby(arduboy);
 char game_state;
 
 void setup()

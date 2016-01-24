@@ -1,4 +1,4 @@
-#include <Gamby.h>
+#include "ArduboyGamby.h"
 #include <avr/pgmspace.h>
 #include "sound_data.h"
 #include "sound.h"
@@ -64,7 +64,7 @@ void update_sound()
       next_note_start_time = millis()+note_duration;
 	  
 	  //play the note
-      tone(9,pgm_read_word_near(melody + current_note), note_duration); 
+      // tone(9,pgm_read_word_near(melody + current_note), note_duration); 
   	
       current_note++;  
     }
