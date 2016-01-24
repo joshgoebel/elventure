@@ -50,7 +50,7 @@
 
 Arduboy arduboy;
 GambyGraphicsMode gamby(arduboy);
-char game_state = GAME_TITLE;
+char game_state;
 
 void setup()
 {
@@ -68,6 +68,20 @@ void loop()
 {  
   static long next_action = 0;
   byte lastInputs;
+
+  if (millis() < next_action) {
+    // have to keep our music going
+    if (game_state != GAME_PAUSED) {
+      update_sound();
+    }
+    // wait until the next timing loop
+    return;
+  }
+
+  // almost every loop we need to work with input
+  gamby.readInputs();
+  lastInputs = gamby.inputs;
+
   switch (game_state)
   {
     case GAME_TITLE:
@@ -75,38 +89,26 @@ void loop()
   	case GAME_WON:
       if (millis() >= next_action)
       {
-        gamby.readInputs();
-        lastInputs = gamby.inputs;
-
         //wait for a button to be pressed to continue
         if (lastInputs & BUTTON_2)
         {
-        //check to see what we are doing when we start the game
-          if (game_state > GAME_TITLE)
+          if (game_state == GAME_WON)
           {
-            if (game_state == GAME_WON)
-            {
-              //if the game has been won, then reset the inventory of the elf
-              resetElf(true);
-            } else {
-              //if the game was just over (died) then do not reset the inventory
-              resetElf(false);
-            }
+            //if the game has been won, then reset the inventory of the elf
+            resetElf(true);
+          } else if (game_state == GAME_OVER) {
+            //if the game was just over (died) then do not reset the inventory
+            resetElf(false);
           }
-          game_state = GAME_PLAYING;
           start_game();
         }
         next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
       }	
-	    update_sound();
 	    break;
 	   
     case GAME_PLAYING:
       if (millis() >= next_action)
       {    
-        gamby.readInputs();
-        lastInputs = gamby.inputs;
-
         if (lastInputs & DPAD_UP) moveElf(FACING_UP);
         if (lastInputs & DPAD_DOWN) moveElf(FACING_DOWN);
         if (lastInputs & DPAD_RIGHT) moveElf(FACING_RIGHT);
@@ -117,7 +119,7 @@ void loop()
          drawDisplay(getElf());
          game_state = GAME_PAUSED;
         }
-        next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
+        
 	      if (game_state != GAME_PAUSED)
         {
           handleRoomElements();
@@ -133,17 +135,14 @@ void loop()
             }
           }
         }
+        next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
       }
       gamby.update();
-      update_sound();
       break;
  
     case GAME_PAUSED:
       if (millis() >= next_action)
       {
-        gamby.readInputs();
-        lastInputs = gamby.inputs;
-
         if (lastInputs & BUTTON_1)
         {
           //redraw the current screen and continue
