@@ -4,7 +4,7 @@
 #define MAP_HEIGHT 16
 
 //map pattern data
-PROGMEM prog_uchar map_pattern_data[] = {
+PROGMEM const unsigned char map_pattern_data[] = {
 1, 1, 1, 1, 1, 1, 1, 1,
 1, 1, 0, 0, 0, 0, 1, 1,
 1, 0, 0, 0, 0, 0, 0, 1,
@@ -43,7 +43,7 @@ PROGMEM prog_uchar map_pattern_data[] = {
 };
 
 //map room data
-PROGMEM prog_uchar map_room_data[] = {
+PROGMEM const unsigned char map_room_data[] = {
 0, 1, 2, 2, 2, 3, 3, 2, 2, 2, 1, 4, 
 4, 1, 2, 2, 5, 2, 2, 5, 2, 2, 1, 4, 
 4, 1, 2, 2, 2, 3, 3, 2, 2, 2, 1, 0, 

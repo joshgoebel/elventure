@@ -3,6 +3,6 @@
 
 #include <avr/pgmspace.h>
 
-extern prog_uchar map_bitmap[];
+extern const unsigned char map_bitmap[];
 
 #endif

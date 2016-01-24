@@ -1,5 +1,5 @@
-#ifndef __ELF__
-#define __ELF__
+#ifndef __ELF_h__
+#define __ELF_h__
 #include "room.h"
 
 #define FACING_DOWN  0
@@ -36,4 +36,4 @@ void addElfItem(char type);
 bool elfHasItem(char type);
 char getElfState();
 
-#endif __ELF__
+#endif __ELF_h__

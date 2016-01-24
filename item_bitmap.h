@@ -3,6 +3,6 @@
 
 #include <avr/pgmspace.h>
 
-extern prog_uchar item_bitmap[];
+extern const unsigned char item_bitmap[];
 
 #endif

@@ -108,11 +108,11 @@
 #define NOTE_GS8 6645
 #define NOTE_REST 0
 
-PROGMEM prog_uint16_t song_start[] = {  0, 97, 196, 219, 283, 295, 298, 303 };
+PROGMEM const uint16_t song_start[] = {  0, 97, 196, 219, 283, 295, 298, 303 };
 
-PROGMEM prog_uint16_t tempo[] = { 125, 80, 180, 190, 150, 250, 200 };
+PROGMEM const uint16_t tempo[] = { 125, 80, 180, 190, 150, 250, 200 };
 
-PROGMEM prog_uint16_t melody[] =
+PROGMEM const uint16_t melody[] =
 {
 NOTE_AS5, NOTE_F5, NOTE_AS5, NOTE_AS5, NOTE_C6, NOTE_D6, NOTE_DS6, 
 NOTE_F6, NOTE_REST, NOTE_F6, NOTE_F6, NOTE_FS6, NOTE_GS6, NOTE_AS6, 
@@ -159,7 +159,7 @@ NOTE_REST, NOTE_C7, NOTE_REST, NOTE_B6, NOTE_REST, NOTE_REST, NOTE_REST,
 NOTE_REST, NOTE_B5, NOTE_B7, NOTE_REST, NOTE_AS5, NOTE_C6, NOTE_D6, 
 NOTE_DS6, NOTE_F6, };
 
-PROGMEM const prog_uchar duration[] =
+PROGMEM const unsigned char duration[] =
 {
 4, 4, 8, 16, 16, 16, 16, 2, 8, 8, 16, 16, 16, 2, 16, 
 16, 16, 8, 16, 2, 4, 8, 16, 16, 2, 8, 8, 8, 16, 16, 

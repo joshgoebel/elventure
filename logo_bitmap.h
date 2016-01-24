@@ -3,6 +3,6 @@
 
 #include <avr/pgmspace.h>
 
-extern prog_uchar logo_bitmap[];
+extern const unsigned char logo_bitmap[];
 
 #endif

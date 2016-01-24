@@ -3,6 +3,6 @@
 
 #include <avr/pgmspace.h>
 
-extern prog_uchar monster_bitmap[];
+extern const unsigned char monster_bitmap[];
 
 #endif

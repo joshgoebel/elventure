@@ -1,6 +1,6 @@
 #include "logo_bitmap.h"
 
-PROGMEM prog_uchar logo_bitmap[] = {
+const unsigned char PROGMEM logo_bitmap[] = {
 
 8,
 0b11111110,

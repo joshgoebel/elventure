@@ -3,6 +3,6 @@
 
 #include <avr/pgmspace.h>
 
-extern prog_uchar elf_bitmap[];
+extern const unsigned char elf_bitmap[];
 
 #endif

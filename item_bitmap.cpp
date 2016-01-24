@@ -1,6 +1,6 @@
 #include "item_bitmap.h"
 
-PROGMEM prog_uchar item_bitmap[] = {
+const unsigned char PROGMEM item_bitmap[] = {
 
 8,8,
 0b00000000,

@@ -1,6 +1,6 @@
 #include "elf_bitmap.h"
 
-PROGMEM prog_uchar elf_bitmap[] = {
+const unsigned char PROGMEM elf_bitmap[] = {
 
 8,8,
 0b00000000,

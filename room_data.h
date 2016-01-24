@@ -2,7 +2,7 @@
 #define ELEMENT_SIZE 4
 
 //room element index
-PROGMEM prog_uchar room_element_index_data[] = {
+PROGMEM const unsigned char room_element_index_data[] = {
 255, 255, 0, 1, 255, 255, 2, 3, 4, 255, 255, 255, 
 255, 255, 255, 255, 255, 5, 255, 6, 7, 255, 8, 255, 
 255, 9, 255, 10, 255, 11, 255, 255, 12, 255, 13, 255, 
@@ -16,7 +16,7 @@ PROGMEM prog_uchar room_element_index_data[] = {
 45, 46, 47, 255, 255, 255, 48, 255};
 
 //room element data
-PROGMEM prog_uchar room_element_data[] = {
+PROGMEM const unsigned char room_element_data[] = {
 0, 72, 16, 255,
 3, 64, 16, 255,
 3, 8, 16, 255,

@@ -1,6 +1,6 @@
 #include "monster_bitmap.h"
 
-PROGMEM prog_uchar monster_bitmap[] = {
+const unsigned char PROGMEM monster_bitmap[] = {
 
 8,8,
 0b01001010,
