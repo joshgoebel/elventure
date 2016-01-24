@@ -5,6 +5,9 @@
 #include <Arduboy.h>
 #include <inttypes.h>
 
+#define GAMBY_ICON_HEIGHT 8
+#define GAMBY_PAGE_HEIGHT 8
+
 // Inputs
 #define DPAD_UP     UP_BUTTON
 #define DPAD_LEFT   LEFT_BUTTON
@@ -40,6 +43,7 @@ public:
   void drawSprite(byte, byte, const byte *, byte);
   void drawSprite(byte, byte, const byte *, byte, const byte *, byte);
 
+  void drawIcon(byte w, const byte *);
   void drawIcon(const byte *);
   void drawIcon(const byte *, byte);
   void drawIcon(const byte *, byte, byte);

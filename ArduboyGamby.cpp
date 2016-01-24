@@ -69,10 +69,29 @@ void GambyGraphicsMode::setPos(byte col, byte page)
   page_pos = page;
 }
 
+
+// icons are always 8 pixels tall
+void GambyGraphicsMode::drawIcon(byte width, const byte *icon)
+{
+  column_pos += width;
+
+  byte x = column_pos;
+  byte y = page_pos * GAMBY_PAGE_HEIGHT;
+
+  drawSprite(x, y, width, GAMBY_ICON_HEIGHT, icon);
+}
+
 void GambyGraphicsMode::drawIcon(const byte *icon) {
+  drawIcon(icon, 0);
 }
 
 void GambyGraphicsMode::drawIcon(const byte *icon, byte frame) {
+  byte w = pgm_read_byte(icon++);
+  if (frame > 0 ) {
+    icon += w * frame; 
+  }
+
+  drawIcon(w, icon);
 }
 
 
