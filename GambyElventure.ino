@@ -28,7 +28,6 @@
 #include <Arduboy.h>
 #include <ArduboyExtra.h>
 #include "ArduboyGamby.h"
-#include <simple_buttons.h>
 #include <avr/pgmspace.h>
 
 #include "map.h"
@@ -51,12 +50,16 @@
 
 Arduboy arduboy;
 GambyGraphicsMode gamby(arduboy);
-char game_state;
+char game_state = GAME_TITLE;
 
 void setup()
 {
+  arduboy.start();
+  // arduboy.setFrameRate(60);
+  arduboy.display();
+  arduboy.initRandomSeed();
   
-  randomSeed(analogRead(0));
+  // randomSeed(analogRead(0));
   
   start_title();
 }
@@ -68,97 +71,92 @@ void loop()
   switch (game_state)
   {
     case GAME_TITLE:
-	case GAME_OVER:
-	case GAME_WON:
-       if (millis() >= next_action)
-       {
-         gamby.readInputs();
-         lastInputs = gamby.inputs;
-         
-		 //wait for a button to be pressed to continue
-         if (lastInputs & BUTTON_2)
-         {
-		   
-		   //check to see what we are doing when we start the game
-		   if (game_state > GAME_TITLE)
-		   {
-		     if (game_state == GAME_WON)
-			 {
-			   //if the game has been won, then reset the inventory of the elf
-			   resetElf(true);
-			 } else {
-			   //if the game was just over (died) then do not reset the inventory
-		       resetElf(false);
-			 }
-		   }
-		   
-		   game_state = GAME_PLAYING;
-		   start_game();
-         }
-		         
-         next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
-       }	
-	   update_sound();
-	   break;
-	   
-	case GAME_PLAYING:
-       if (millis() >= next_action)
-       {    
-         gamby.readInputs();
-         lastInputs = gamby.inputs;
-         
-         if (lastInputs & DPAD_UP) moveElf(FACING_UP);
-         if (lastInputs & DPAD_DOWN) moveElf(FACING_DOWN);
-         if (lastInputs & DPAD_RIGHT) moveElf(FACING_RIGHT);
-         if (lastInputs & DPAD_LEFT) moveElf(FACING_LEFT);
-         if (lastInputs & BUTTON_2) throwSword();
-         if (lastInputs & BUTTON_1) 
-         {
-           drawDisplay(getElf());
-           game_state = GAME_PAUSED;
-         }
-         
-    
-         next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
-	if (game_state != GAME_PAUSED)
+  	case GAME_OVER:
+  	case GAME_WON:
+      if (millis() >= next_action)
+      {
+        gamby.readInputs();
+        lastInputs = gamby.inputs;
+
+        //wait for a button to be pressed to continue
+        if (lastInputs & BUTTON_2)
         {
-         handleRoomElements();
+        //check to see what we are doing when we start the game
+          if (game_state > GAME_TITLE)
+          {
+            if (game_state == GAME_WON)
+            {
+              //if the game has been won, then reset the inventory of the elf
+              resetElf(true);
+            } else {
+              //if the game was just over (died) then do not reset the inventory
+              resetElf(false);
+            }
+          }
+          game_state = GAME_PLAYING;
+          start_game();
+        }
+        next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
+      }	
+	    update_sound();
+	    break;
+	   
+    case GAME_PLAYING:
+      if (millis() >= next_action)
+      {    
+        gamby.readInputs();
+        lastInputs = gamby.inputs;
+
+        if (lastInputs & DPAD_UP) moveElf(FACING_UP);
+        if (lastInputs & DPAD_DOWN) moveElf(FACING_DOWN);
+        if (lastInputs & DPAD_RIGHT) moveElf(FACING_RIGHT);
+        if (lastInputs & DPAD_LEFT) moveElf(FACING_LEFT);
+        if (lastInputs & BUTTON_2) throwSword();
+        if (lastInputs & BUTTON_1) 
+        {
+         drawDisplay(getElf());
+         game_state = GAME_PAUSED;
+        }
+        next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
+	      if (game_state != GAME_PAUSED)
+        {
+          handleRoomElements();
 		 
-		 //check the elf's state
-		 if (getElfState() != ELFSTATE_PLAYING)
-		 {
-		   if (getElfState() == ELFSTATE_DEAD)
-		   {
-		     start_game_over();
-		   } else {
-		     start_game_won();
-		   }
-		 }
-         }
-       }
-       gamby.update();
-       update_sound();
-       break;
+          //check the elf's state
+          if (getElfState() != ELFSTATE_PLAYING)
+          {
+            if (getElfState() == ELFSTATE_DEAD)
+            {
+             start_game_over();
+            } else {
+             start_game_won();
+            }
+          }
+        }
+      }
+      gamby.update();
+      update_sound();
+      break;
+ 
+    case GAME_PAUSED:
+      if (millis() >= next_action)
+      {
+        gamby.readInputs();
+        lastInputs = gamby.inputs;
+
+        if (lastInputs & BUTTON_1)
+        {
+          //redraw the current screen and continue
+          gamby.clearScreen();
+          drawMapElements();
+          showElf();
+          gamby.update();
+          game_state = GAME_PLAYING;
+        }
        
-       case GAME_PAUSED:
-       if (millis() >= next_action)
-       {
-         gamby.readInputs();
-         lastInputs = gamby.inputs;
-		 
-         if (lastInputs & BUTTON_1)
-         {
-           //redraw the current screen and continue
-           gamby.clearScreen();
-           drawMapElements();
-           showElf();
-           gamby.update();
-           game_state = GAME_PLAYING;
-         }
-         
-         next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
-       }
-       break;       
+        next_action = millis() + PAUSE_BETWEEN_ACTIONS; 
+      }
+      break;       
   }
 }
 
