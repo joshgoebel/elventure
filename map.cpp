@@ -82,6 +82,8 @@ void scrollMap(char direction)
 	   break;
   }
   
+  gamby.clearScreen();
+  delay(200);
   drawMapRoom();
 }
 
