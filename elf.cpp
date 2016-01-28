@@ -57,8 +57,8 @@ void moveElf(unsigned char facing)
 	        if (checkMapRoomMove(elf.x+4, elf.y + 16) == 0) elf.y += STEP_LENGTH;
            } else {
 	     scrollMap(SCROLL_DOWN);
-    	     elf.x = 36;
-             elf.y = 8;
+    	     // elf.x = 40;
+             elf.y = 0;
              elf.facing = FACING_DOWN;
 	   }
 	   break;
@@ -70,8 +70,8 @@ void moveElf(unsigned char facing)
 	        if (checkMapRoomMove(elf.x + 4, elf.y - 4) == 0) elf.y -= STEP_LENGTH;
            } else {
 	     scrollMap(SCROLL_UP);
-	     elf.x = 36;
-	     elf.y = 32;
+	     // elf.x = 40;
+	     elf.y = 48;
 	     elf.facing = FACING_UP;
 	   }
 	   break;
@@ -83,8 +83,8 @@ void moveElf(unsigned char facing)
                 if (checkMapRoomMove(elf.x - 4, elf.y + 12) == 0) elf.x -= STEP_LENGTH;
            } else {
 	       scrollMap(SCROLL_LEFT);
-	       elf.x = 64;
-	       elf.y = 24;
+	       elf.x = 88;
+	       // elf.y = 24;
 	       elf.facing = FACING_LEFT;
 	   }
            break;
@@ -96,8 +96,8 @@ void moveElf(unsigned char facing)
                if (checkMapRoomMove(elf.x + 12, elf.y + 12) == 0) elf.x += STEP_LENGTH;	
            } else {
 	       scrollMap(SCROLL_RIGHT);
-	       elf.x = 16;
-	       elf.y = 24;
+	       elf.x = 0;
+	       // elf.y = 24;
 	       elf.facing = FACING_RIGHT;
 	   }
            break;
