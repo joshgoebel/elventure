@@ -27,16 +27,17 @@ void GambyGraphicsMode::readInputs()
 }
 
 void GambyGraphicsMode::drawSprite(byte x, byte y, byte w, byte h, const byte *sprite) {
-  byte this_byte;
-  byte this_bit=8;
-  for (byte i=0; i<w; i++) {
-    for (byte j=h; j>0; j--) {
+  byte this_byte = pgm_read_byte(sprite);
+  byte this_bit = 0;
+
+  for (byte xi = 0; xi < w; xi++) {
+    for (byte yi = h; yi > 0; yi--) {
       if (this_bit == 8) {
         sprite++;
-        this_byte = ~pgm_read_byte(sprite);
+        this_byte = pgm_read_byte(sprite);
         this_bit=0;
       }
-      arduboy->drawPixel(x+i,y+j,(this_byte << this_bit) & B10000000);
+      arduboy->drawPixel(x+xi,y+yi,(this_byte << this_bit) & B10000000);
       this_bit++;
     }
   }
@@ -79,6 +80,7 @@ void GambyGraphicsMode::drawIcon(byte width, const byte *icon)
   byte y = page_pos * GAMBY_PAGE_HEIGHT;
 
   drawSprite(x, y, width, GAMBY_ICON_HEIGHT, icon);
+  arduboy->display();
 }
 
 void GambyGraphicsMode::drawIcon(const byte *icon) {

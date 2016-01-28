@@ -14,9 +14,9 @@ void drawDisplay(Elf elf)
 {
   
   //blank out all the sprites (since they could be in the buffer)
-  for (char t=0; t < 11; t++)
+  for (char t=0; t < 12; t++)
   {
-     for (char u=0; u < 7; u++)
+     for (char u=0; u < 8; u++)
 	 {
 	    gamby.drawSprite(t*8, u*8, map_bitmap);
 	 }

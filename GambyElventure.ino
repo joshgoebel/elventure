@@ -77,6 +77,8 @@ void loop()
     if (game_state != GAME_PAUSED) {
       update_sound();
     }
+    // sleep for ~1ms until millis() timer wakes us
+    arduboy.idle();
     // wait until the next timing loop
     return;
   }

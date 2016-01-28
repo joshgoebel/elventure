@@ -18,10 +18,10 @@
 #define DPAD_DOWN_LEFT          DPAD_DOWN | DPAD_LEFT
 #define DPAD_DOWN_RIGHT         DPAD_DOWN | DPAD_RIGHT
 #define DPAD_ANY    DPAD_UP | DPAD_DOWN | DPAD_RIGHT | DPAD_LEFT
-#define BUTTON_1    A_BUTTON
-#define BUTTON_2    B_BUTTON
-#define BUTTON_3    A_BUTTON
-#define BUTTON_4    B_BUTTON
+#define BUTTON_1    B_BUTTON
+#define BUTTON_2    A_BUTTON
+#define BUTTON_3    B_BUTTON
+#define BUTTON_4    A_BUTTON
 #define BUTTON_ANY    BUTTON_1 | BUTTON_2 | BUTTON_3 | BUTTON_4
 
 class GambyGraphicsMode {
