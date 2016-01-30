@@ -79,8 +79,9 @@ void moveElf(unsigned char facing)
 	case FACING_LEFT:
 	   if (elf.x > 4)
            {
-             if (checkMapRoomMove(elf.x - 4, elf.y) == 0)
-                if (checkMapRoomMove(elf.x - 4, elf.y + 12) == 0) elf.x -= STEP_LENGTH;
+             if (checkMapRoomMove(elf.x - 8, elf.y) == 0)
+             	if (checkMapRoomMove(elf.x - 8, elf.y+8) == 0)
+                  if (checkMapRoomMove(elf.x - 8, elf.y + 12) == 0) elf.x -= STEP_LENGTH;
            } else {
 	       scrollMap(SCROLL_LEFT);
 	       elf.x = 88;
@@ -90,10 +91,11 @@ void moveElf(unsigned char facing)
            break;
 
         case FACING_RIGHT:
-           if (elf.x < 80)
+           if (elf.x < 84)
            {
-             if (checkMapRoomMove(elf.x + 12, elf.y) == 0)
-               if (checkMapRoomMove(elf.x + 12, elf.y + 12) == 0) elf.x += STEP_LENGTH;	
+             if (checkMapRoomMove(elf.x + 8, elf.y) == 0)
+               if(checkMapRoomMove(elf.x + 8, elf.y+8) == 0)
+                 if (checkMapRoomMove(elf.x + 8, elf.y + 12) == 0) elf.x += STEP_LENGTH;	
            } else {
 	       scrollMap(SCROLL_RIGHT);
 	       elf.x = 0;
@@ -122,6 +124,7 @@ void throwSword()
 		case FACING_DOWN:
 			element.state = STATE_MOVE_DOWN;
 			element.x = elf.x;
+			// +16, don't want to hit out feet
 			element.y = elf.y + 16;
 			break;
 			
@@ -143,7 +146,9 @@ void throwSword()
 			element.y = elf.y;	
 			break;
 	  }  
-	  updateRoomElement(element);
+	  if (checkMapRoomMove(element.x, element.y)==0) {
+	 	 updateRoomElement(element);
+	}
   }
 }
 
