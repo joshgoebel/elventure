@@ -6,6 +6,8 @@
 #include "map_bitmap.h"
 #include "map_data.h"
 #include "room.h"
+#include "sound.h"
+
 extern GambyGraphicsMode gamby;
 
 #define SIZEOF_MAP_RECORD 10
@@ -116,6 +118,7 @@ void roomTransition(char room_start, char room_finish, char direction)
       (vector.x*elf_offset), elf.y + (vector.y*elf_offset) + 8, elf_bitmap, elf.facing + elf.step); 
 
     gamby.update();
+    update_sound();
     // delay(50);
   } 
 
