@@ -30,15 +30,22 @@ void GambyGraphicsMode::drawSprite(byte x, byte y, byte w, byte h, const byte *s
   byte this_byte = pgm_read_byte(sprite);
   byte this_bit = 0;
 
+  // TODO: defines
+  // scope drawing to Arduboy screen size otherwise
+  // short circuit
+  if (y > 63 || x > 127)
+    return;
+
   for (byte xi = 0; xi < w; xi++) {
     for (byte yi = h; yi > 0; yi--) {
       if (this_bit == 8) {
         sprite++;
         this_byte = pgm_read_byte(sprite);
-        this_bit=0;
+        this_bit = 0;
       }
-      arduboy->drawPixel(x+xi,y+yi,(this_byte << this_bit) & B10000000);
+      arduboy->drawPixel(x+xi,y+yi, this_byte & B10000000);
       this_bit++;
+      this_byte <<= 1;
     }
   }
 }

@@ -30,15 +30,15 @@
 #include "ArduboyGamby.h"
 #include <avr/pgmspace.h>
 
+#define SCREENWIDTH     96
+#define SCREENHEIGHT    64
+
 #include "map.h"
 #include "room.h"
 #include "elf.h"
 #include "display.h"
 #include "logo.h"
 #include "sound.h"
-
-#define SCREENWIDTH     96
-#define SCREENHEIGHT    64
 
 #define PAUSE_BETWEEN_ACTIONS 100
 
@@ -152,7 +152,7 @@ void loop()
         {
           //redraw the current screen and continue
           gamby.clearScreen();
-          drawMapElements();
+          drawMapElements(CURRENT_ROOM, (Vector){0,0,0});
           showElf();
           gamby.update();
           game_state = GAME_PLAYING;
