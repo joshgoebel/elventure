@@ -58,6 +58,7 @@ char game_state;
 void setup()
 {
   arduboy.start();
+  arduboy.audio.on();
   // arduboy.setFrameRate(60);
   arduboy.display();
   arduboy.initRandomSeed();

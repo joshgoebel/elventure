@@ -10,6 +10,8 @@
 
 #define MUSIC_STOPPED 4
 
+extern Arduboy arduboy;
+
 int song_note_len;       //current song's not length
 int current_note;        //current note
 char current_song;       //current song
@@ -59,12 +61,13 @@ void update_sound()
       }
       
      //determine the current note duration
-      int note_duration = ( song_note_len / pgm_read_byte_near(duration + current_note));
-  	  
-      next_note_start_time = millis()+note_duration;
-	  
+      int note_duration = ( song_note_len / pgm_read_byte(duration + current_note));
+
+      next_note_start_time = millis() + note_duration + 12;
+
 	  //play the note
-      // tone(9,pgm_read_word_near(melody + current_note), note_duration); 
+      arduboy.tunes.tone(pgm_read_word(melody + current_note), note_duration); 
+      // tone(A2, pgm_read_word(melody + current_note), note_duration); 
   	
       current_note++;  
     }
@@ -85,13 +88,13 @@ void update_sound()
 void play_song(char song)
 {
   //determine the note length based on the tempo of the song
-  song_note_len = ( 60000 / pgm_read_word_near(tempo + song)) * 4;
+  song_note_len = ( 60000 / pgm_read_word(tempo + song)) * 4;
   
   //determine the end position of the song
-  song_end_pos = pgm_read_word_near(song_start + (song+1)) - 1;
+  song_end_pos = pgm_read_word(song_start + (song+1)) - 1;
   
   //set the note to the first note of the song
-  current_note = pgm_read_word_near(song_start + song);
+  current_note = pgm_read_word(song_start + song);
   
   //set the state to 'playing'
   music_state = SONG_PLAYING;
