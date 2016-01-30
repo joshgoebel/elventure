@@ -2,8 +2,8 @@
 #define __ELF_h__
 #include "room.h"
 
-#define FACING_DOWN  0
-#define FACING_UP    3
+#define FACING_UP    0
+#define FACING_DOWN  3
 #define FACING_LEFT  6
 #define FACING_RIGHT 9
 

@@ -65,27 +65,12 @@ void moveElf(unsigned char facing)
   byte collision;
 
   Rect box = {elf.x, elf.y, 8, 16};
-  switch (facing) {
-    case FACING_UP:
-      vector = {0, -1, 0};
-      direction = SCROLL_UP;
-      break;
-    case FACING_DOWN:
-      vector = {0, 1, 0};
-      direction = SCROLL_DOWN;
-      break;
-    case FACING_LEFT:
-      vector = {-1, 0, 0};
-      direction = SCROLL_LEFT;
-      break;
-    case FACING_RIGHT:
-      vector = {1, 0, 0};
-      direction = SCROLL_RIGHT;
-      break;
-  }
-  // vector = transition_vectors[facing];
-  // vector.x *= -1;
-  // vector.y *= -1;
+  direction = facing / 3 ;
+  // use transition vector, just negate it since scrolling is the 
+  // opposite of actual on screen movement
+  vector = transition_vectors[direction];
+  vector.x *= -1;
+  vector.y *= -1;
   vector.len = STEP_LENGTH;
   collision = checkCollision(box, vector);
   // arduboy.print(collision);
