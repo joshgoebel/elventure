@@ -2,6 +2,7 @@
 #include "ArduboyGamby.h"
 #include "elf.h"
 #include "elf_bitmap.h"
+
 #include "map.h"
 #include "map_bitmap.h"
 #include "map_data.h"
@@ -21,6 +22,115 @@ Vector transition_vectors[] = {{0,1,0},{0,-1,0},{1,0,0},{-1,0,0}};
 
 //store the current room
 char map_curr_room = 0;
+
+
+
+uint8_t checkCollision(Rect box, Vector v)
+{ 
+  uint8_t tile;
+
+  // new position would be
+  box.x += v.x * v.len;
+  box.y += v.y * v.len;
+  // calculate bounding box
+  byte x2 = box.x + box.width - 1;
+  byte y2 = box.y + box.height - 1;
+
+
+  // basic bounds
+  if (( box.x<0 || x2 > 95) || (box.y<0 || y2 > 63)) {
+    return OFFSCREEN;
+  }
+
+  uint8_t grid_x = box.x / 8;
+  uint8_t grid_y = box.y / 8 ;
+  uint8_t grid_x2 = x2 / 8;// + (x2 & 0x07 ? 1 : 0);
+  uint8_t grid_y2 = y2 / 8;// + (y2 % 8 > 3 ? 1 : 0);
+
+  // arduboy.setCursor(0,0);
+  // arduboy.print("screen");
+  // arduboy.print(box.x);
+  // arduboy.print("x");
+  // arduboy.print(box.y);
+  // arduboy.println();
+  // arduboy.print(x2);
+  // arduboy.print("x");
+  // arduboy.println(y2);
+  // arduboy.println();
+
+  // arduboy.print("grid");
+  // arduboy.print(grid_x);
+  // arduboy.print("x");
+  // arduboy.print(grid_y);
+  // arduboy.println();
+  // arduboy.print(grid_x2);
+  // arduboy.print("x");
+  // arduboy.println(grid_y2);
+
+  // check our entire overlap for anything over than
+  // floor
+  for (uint8_t x = grid_x; x <= grid_x2; x++) {
+    for (uint8_t y = grid_y; y <= grid_y2; y++) {
+      tile = getMapBlock(x, y, map_curr_room);
+      // arduboy.println(tile);
+      if (tile != 0) {
+        // arduboy.print("collide ");
+        // arduboy.print(x);
+        // arduboy.print("x");
+        // arduboy.print(y);
+        return MAP_COLLISION;
+      }
+    }
+  }
+
+  return NO_COLLISION;
+}
+
+uint8_t findSmoothRoute(Rect box, Vector &fv)
+{
+  char *alt;
+  Vector v;
+  v.x = fv.x;
+  v.y = fv.y;
+  // arduboy.println((uint8_t)fv.x);
+  // arduboy.println((uint8_t)fv.y);
+  v.len = fv.len;
+  if (fv.y == 0) {
+    alt = &v.y;
+  } else {
+    alt = &v.x;
+  }
+  
+  // arduboy.print("alt ");
+  // arduboy.println(*alt);
+  // arduboy.println("find smooth");
+  // arduboy.println();
+
+  *alt = 1;
+  if(!checkCollision(box, v)) { 
+    fv.x = v.x;
+    fv.y = v.y;
+    // arduboy.print("found ");    
+    // arduboy.print((uint8_t)v.x);
+    // arduboy.print("x");
+    // arduboy.println((uint8_t)v.y);
+  
+    return NO_COLLISION; }
+  *alt = -1;
+  if(!checkCollision(box, v)) { 
+    fv.x = v.x;
+    fv.y = v.y;
+
+    // arduboy.print("found ");    
+    // arduboy.print((uint8_t)v.x);
+    // arduboy.print("x");
+    // arduboy.println((uint8_t)v.y);
+
+    return NO_COLLISION; }
+
+  return MAP_COLLISION;
+}
+
 
 //check the current room movement
 char checkMapRoomMove(char x, char y)

@@ -29,6 +29,7 @@
 #include <ArduboyExtra.h>
 #include "ArduboyGamby.h"
 #include <avr/pgmspace.h>
+#include <physics.h>
 
 #define SCREENWIDTH     96
 #define SCREENHEIGHT    64
@@ -52,6 +53,7 @@
 #define GAME_OVER    4
 
 Arduboy arduboy;
+Physics physics;
 GambyGraphicsMode gamby(arduboy);
 char game_state;
 
