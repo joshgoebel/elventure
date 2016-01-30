@@ -27,6 +27,7 @@ struct Elf
 };
 
 void resetElf(bool reset_items);
+void eraseElf();
 void showElf();
 void moveElf(unsigned char facing);
 void throwSword();

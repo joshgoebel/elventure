@@ -34,9 +34,17 @@ void resetElf(bool reset_items)
 
 void showElf()
 {
-  moveElf(elf.facing);
+   //draw new elf bitmap
+  gamby.drawSprite(elf.x, elf.y, elf_bitmap, elf.facing );
+  gamby.drawSprite(elf.x, elf.y+8, elf_bitmap, elf.facing + elf.step); 
 }
 
+void eraseElf()
+{
+  //erase the old elf image (using blank map tile)
+  gamby.drawSprite(elf.x, elf.y, map_bitmap);
+  gamby.drawSprite(elf.x, elf.y + 8, map_bitmap);
+}
 
 
 void moveElf(unsigned char facing)
@@ -45,10 +53,7 @@ void moveElf(unsigned char facing)
   byte new_y;
   byte direction;
 
-  //erase the old elf image (using blank map tile)
-  gamby.drawSprite(elf.x, elf.y, map_bitmap);
-  gamby.drawSprite(elf.x, elf.y + 8, map_bitmap);
-  
+  eraseElf();  
   // drawMapRoom();
 
   //if it is a new facing, then reset the step
@@ -104,9 +109,7 @@ void moveElf(unsigned char facing)
     elf.y += vector.y * vector.len;
   }
 
-  //draw new elf bitmap
-  gamby.drawSprite(elf.x, elf.y, elf_bitmap, elf.facing );
-  gamby.drawSprite(elf.x, elf.y+8, elf_bitmap, elf.facing + elf.step); 
+  showElf();
 }
 
 void throwSword()
