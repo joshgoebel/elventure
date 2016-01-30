@@ -61,38 +61,43 @@ void handleRoomElements()
 {
   //retrieve elf information
   Elf elf = getElf();
-  
+  RoomElement *element;
+
   for (char i=0; i < element_count; i++)
   {
-    //if the element is hidden, skip past it
-    if (roomElements[i].state > STATE_HIDDEN)
-	{	   	   
-       //test room elements for a collision with the elf
-	   if (testRoomElement(roomElements[i], elf.x, elf.y, 16)) roomElements[i] = hitElf(roomElements[i]);
-	  
-	   //determine the type of element and handle the behaviors
-	   if (roomElements[i].type < 50)
-	   {		 
-		 //test for monster being hit by the weapon (if it is active)
-		 //room element 0 is always the weapon
-		 if (roomElements[0].state > STATE_HIDDEN) {
-		   if (testRoomElement(roomElements[i], roomElements[0].x, roomElements[0].y, 8))
-		   { 
-		     roomElements[i] = hitMonster(roomElements[i]);
-		     roomElements[0] = hitItem(roomElements[0]);
-		   }
-		 }
-		 
-		 //handle monster movement
-         roomElements[i] = moveMonster(roomElements[i]);
+    element = &roomElements[i];
 
-	   }  else {
-         roomElements[i] = moveItem(roomElements[i]);
-		 
-		 //hide the heart if the timer has run out 
-		 if ((roomElements[i].type == ITEM_HEART) && (roomElements[i].counter == 0)) roomElements[i] = hitItem(roomElements[i]);
-	   }
-	}
+    //if the element is hidden, skip past it
+    if (element->state == STATE_HIDDEN)
+      return;
+
+    //test room elements for a collision with the elf
+    if (testRoomElement(*element, elf.x, elf.y, 16)) 
+      *element = hitElf(*element);
+  
+    //determine the type of element and handle the behaviors
+    if (element->type < ITEM_TYPES)
+    {		 
+      //test for monster being hit by the weapon (if it is active)
+      //room element 0 is always the weapon
+      if (roomElements[0].state != STATE_HIDDEN) {
+        if (testRoomElement(*element, roomElements[0].x, roomElements[0].y, 8))
+        { 
+         *element = hitMonster(*element);
+         roomElements[0] = hitItem(roomElements[0]);
+        }
+      }
+	 
+	    //handle monster movement
+      *element = moveMonster(*element);
+
+    } else {
+      *element = moveItem(*element);
+	 
+      //hide the heart if the timer has run out 
+      if ((element->type == ITEM_HEART) && (element->counter == 0)) 
+       *element = hitItem(*element);
+    }
   }
 }
 

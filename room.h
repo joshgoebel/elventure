@@ -4,6 +4,7 @@
 #define SIZEOF_ELEMENT_RECORD 4
 #define MAX_ELEMENT_RECORDS 4
 
+#define ITEM_TYPES   50
 #define ITEM_SWORD   50
 #define ITEM_HEART   52
 #define ITEM_CRYSTAL 54
