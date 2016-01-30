@@ -49,8 +49,7 @@ void eraseElf()
 
 void moveElf(unsigned char facing)
 {
-  Vector vector = {0,0,0};
-  byte new_y;
+  Vector vector;
   byte direction;
 
   eraseElf();  
