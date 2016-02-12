@@ -66,7 +66,7 @@ void update_sound()
       next_note_start_time = millis() + note_duration + 12;
 
 	  //play the note
-      arduboy.tunes.tone(pgm_read_word(melody + current_note), note_duration); 
+     // arduboy.tunes.tone(pgm_read_word(melody + current_note), note_duration); 
       // tone(A2, pgm_read_word(melody + current_note), note_duration); 
   	
       current_note++;  

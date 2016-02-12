@@ -24,11 +24,15 @@
    
  */
  
-
-#include <Arduboy.h>
-#include <ArduboyExtra.h>
+#include <SPI.h>
+#include <EEPROM.h>
+#include "Arglib.h"
 #include "ArduboyGamby.h"
 #include <avr/pgmspace.h>
+#include "Squawk.h"
+#include "song.h"
+
+SQUAWK_CONSTRUCT_ISR(SQUAWK_PWM_PIN5)
 
 #define SCREENWIDTH     96
 #define SCREENHEIGHT    64
@@ -55,10 +59,12 @@ Arduboy arduboy;
 GambyGraphicsMode gamby(arduboy);
 char game_state;
 
+extern Melody zeldaTheme[];
+
 void setup()
 {
   arduboy.start();
-  arduboy.audio.on();
+  //arduboy.audio.on();
   // arduboy.setFrameRate(60);
   arduboy.display();
   arduboy.initRandomSeed();
@@ -66,6 +72,13 @@ void setup()
   // randomSeed(analogRead(0));
   
   start_title();
+  Squawk.begin(32000);
+  // Begin playback of melody.
+  Squawk.play(zeldaTheme);
+  // Tune the song to something more suitable for a piezo
+  Squawk.tune(2.0);
+  // Lower the tempo ever so slightly
+  Squawk.tempo(48);
 }
 
 void loop()
