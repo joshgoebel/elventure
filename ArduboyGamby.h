@@ -1,8 +1,7 @@
 #ifndef ArduboyGamby_h
 #define ArduboyGamby_h
 
-#include "Arduino.h"
-#include <Arduboy.h>
+#include "Arglib.h"
 #include <inttypes.h>
 
 #define GAMBY_ICON_HEIGHT 8
